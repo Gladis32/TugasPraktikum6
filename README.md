@@ -83,6 +83,8 @@ INSERT INTO Project_detail VALUES
 ('PJ03', 'N07'),
 ('PJ03', 'N08');
 SELECT * FROM Project_detail;
+```
+
 
 ## Menampilkan Nama Manajer Tiap Departemen
 
