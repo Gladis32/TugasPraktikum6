@@ -9,19 +9,20 @@
 CREATE TABLE Perusahaan(
 id_p VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
-alamat VARCHAR(45) DEFAULT NULL
+alamat VARCHAR(45)
 );
 
 INSERT INTO Perusahaan VALUES
 ('P01', 'Kantor Pusat', NULL),
 ('P02', 'Cabang Bekasi', NULL);
+
 SELECT * FROM Perusahaan;
 
 CREATE TABLE Departemen(
 id_dept VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
 id_p VARCHAR(10) NOT NULL,
-manajer_nik VARCHAR(10) DEFAULT NULL
+manajer_nik VARCHAR(10) 
 );
 
 INSERT INTO Departemen VALUES
@@ -29,13 +30,14 @@ INSERT INTO Departemen VALUES
 ('D02', 'Marketing', 'P01', 'N03'),
 ('D03', 'RnD', 'P02', NULL),
 ('D04', 'Logistik', 'P02', NULL);
+
 SELECT * FROM Departemen;
 
 CREATE TABLE Karyawan(
 nik VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
 id_dept VARCHAR(10) NOT NULL,
-sup_nik VARCHAR(10) DEFAULT NULL
+sup_nik VARCHAR(10)
 );
 
 INSERT INTO Karyawan VALUES
@@ -47,6 +49,7 @@ INSERT INTO Karyawan VALUES
 ('N06', 'Dani', 'D02', NULL),
 ('N07', 'Anis', 'D02', 'N06'),
 ('N08', 'Dika', 'D02', 'N06');
+
 SELECT * FROM Karyawan;
 
 CREATE TABLE Project(
