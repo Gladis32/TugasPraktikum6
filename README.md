@@ -102,6 +102,7 @@ LEFT JOIN Departemen ON Departemen.id_dept = Karyawan.id_dept;
 ```
 
 ## Menampilkan Daftar Karyawan Yang Bekerja Pada Project A
+
 ```
 SELECT Karyawan.nik, Karyawan.nama
 FROM Karyawan
