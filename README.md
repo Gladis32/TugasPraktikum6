@@ -4,7 +4,15 @@
 |----|---|-----|------|
 |Gladis Toti Anggraini |312310566|TI.23.A5|Basis Data|
 
+## ER-D
 
+![erd](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/dc847885-3eb4-40a9-a177-28358b8c09c1)
+![erdiagram](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/94adf07a-7ecf-4fba-b68a-bae46261453a)
+
+## INPUT DATA
+![tabel input](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/9fbe14b8-a97b-411e-b428-07aa64a79c44)
+
+### 1. Perusahaan 
 ```
 CREATE TABLE Perusahaan(
 id_p VARCHAR(10) PRIMARY KEY,
@@ -18,6 +26,9 @@ INSERT INTO Perusahaan VALUES
 
 SELECT * FROM Perusahaan;
 ```
+
+![tabel1](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/4e69281c-8806-416c-ae34-0e6cfbeb5c1a)
+
 
 ### 2. Departemen
 ```
@@ -39,7 +50,7 @@ INSERT INTO Departemen VALUES
 SELECT * FROM Departemen;
 ```
 
-
+![tabel2](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/a7996176-bc9c-4325-9bc4-42b82e208efa)
 
 ### 3. Karyawan
 ```
@@ -67,10 +78,9 @@ INSERT INTO Karyawan (nik, nama, id_dept, sup_nik, gaji_pokok) VALUES
 SELECT * FROM Karyawan;
 ```
 
-
+![tabel3](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/c86a2cd6-fe1e-4dae-8e97-3067b773f4e5)
 
 ### 4. Project
-
 ```
 CREATE TABLE Project(
 id_proj VARCHAR(10) PRIMARY KEY,
@@ -88,7 +98,7 @@ INSERT INTO Project VALUES
 SELECT * FROM Project;
 ```
 
-
+![tabel4](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/50d5c1d9-7670-4032-8187-25b6d6a5ddcd)
 
 ### 5. Project Detail
 ```
@@ -119,35 +129,11 @@ INSERT INTO Project_detail VALUES
 SELECT * FROM Project_detail;
 ```
 
+![tabel5](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/daaccd49-00d1-465f-b39f-bb2846e68456)
 
-## Menampilkan Nama Manajer Tiap Departemen
+## LATIHAN
 
-```
-Select Departemen.nama AS Departemen, Karyawan.nama AS Manajer
-FROM Departemen
-LEFT JOIN Karyawan ON Karyawan.nik = Departemen.manajer_nik;
-```
-
-## Menampilkan Nama Supervisor Tiap Karyawan
-
-```
-SELECT Karyawan.nik, Karyawan.nama, Departemen.nama AS Departemen, Supervisor.nama AS Supervisor
-FROM Karyawan
-LEFT JOIN Karyawan AS Supervisor ON Supervisor.nik = Karyawan.sup_nik
-LEFT JOIN Departemen ON Departemen.id_dept = Karyawan.id_dept;
-```
-
-## Menampilkan Daftar Karyawan Yang Bekerja Pada Project A
-
-```
-SELECT Karyawan.nik, Karyawan.nama
-FROM Karyawan
-JOIN Project_detail ON Project_detail.nik = Karyawan.nik
-JOIN Project ON Project.id_proj = Project_detail.id_proj
-WHERE Project.nama = 'A';
-```
-
-## 1. Departemen Apa Saja Yang Terlibat Dalam Tiap-tiap Project.
+### 1. Departemen Apa Saja Yang Terlibat Dalam Tiap-tiap Project.
 
 ```
 SELECT Project.nama AS Project, GROUP_CONCAT(Departemen.nama) AS Departemen
@@ -158,7 +144,12 @@ INNER JOIN Departemen ON Karyawan.id_dept = Departemen.id_dept
 GROUP BY Project.id_proj;
 ```
 
-## 2. Jumlah Karyawan Tiap Departemen Yang Bekerja Pada Tiap-tiap Project.
+`Inner Join` Menggabungkan tabel **Project** dengan tabel **Project_detail** berdasarkan kolom **id_proj** dan menggabungkan tabel **Project_detail** dengan tabel Karyawan berdasarkan kolom **nik**. `GROUP_CONCAT()` untuk menggabungkan nama departemen yang terlibat dalam satu baris berdasarkan **id_proj**.
+
+![1](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/92f06789-2d9d-4d52-a683-aa1788bd74ce)
+
+
+### 2. Jumlah Karyawan Tiap Departemen Yang Bekerja Pada Tiap-tiap Project.
 
 ```
 SELECT Project.nama AS Project, Departemen.nama AS Departemen, COUNT(*) AS 'Jumlah Karyawan'
@@ -168,8 +159,12 @@ INNER JOIN Karyawan ON Project_detail.nik = Karyawan.nik
 INNER JOIN Departemen ON Karyawan.id_dept = Departemen.id_dept
 GROUP BY Project.id_proj, Departemen.id_dept;
 ```
+`COUNT(*)` untuk menghitung jumlah karyawan dan `GROUP BY` untuk mengelompokkan hasil berdasarkan **id_proj** dan **id_dept**.
 
-## 3. Ada Berapa Project Yang Sedang Dikerjakan Oleh Departemen ***RnD***? (ket: project berjalan adalah yang statusnya 1).
+![2](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/64489032-9a37-4957-8f68-1ea16202d275)
+
+
+### 3. Ada Berapa Project Yang Sedang Dikerjakan Oleh Departemen ***RnD***? (ket: project berjalan adalah yang statusnya 1).
 
 ```
 SELECT COUNT(*) AS 'Jumlah Project'
@@ -180,7 +175,12 @@ INNER JOIN Departemen ON Karyawan.id_dept = Departemen.id_dept
 WHERE Departemen.nama = 'RnD' AND Project.status = 1;
 ```
 
-## 4. Berapa banyak Project yang sedang dikerjakan oleh Ari ?
+Untuk menghitung jumlah project yang sedang dikerjakan oleh departemen dengan nama **'RnD'**. Menggunakan `COUNT(*)` untuk menghitung jumlah project dan filter menggunakan `WHERE` untuk nama departemen **'RnD'** dan status project yang sedang berjalan **(Project.status = 1)**.
+
+![3](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/39ddc2e1-2414-428f-af1a-64c3f5175576)
+
+
+### 4. Berapa banyak Project yang sedang dikerjakan oleh Ari ?
 
 ```
 SELECT COUNT(*) AS 'Jumlah Project'
@@ -188,8 +188,14 @@ FROM Project_detail
 INNER JOIN Karyawan ON Project_detail.nik = Karyawan.nik
 WHERE Karyawan.nama = 'Ari' AND Project_detail.id_proj IN (SELECT id_proj FROM Project WHERE status = 1);
 ```
+- Fungsi `COUNT(*)` untuk menghitung jumlah baris (project) yang sesuai dengan kriteria yang ditentukan. `FROM Project_detail` mengambil data dari tabel Project_detail, yang berisi hubungan antara project *(id_proj)* dan karyawan *(nik)* yang terlibat dalam project. `INNER JOIN` Karyawan *ON Project_detail.nik = Karyawan.nik** melakukan *INNER JOIN* antara Project_detail dan Karyawan berdasarkan kolom *nik* untuk mengakses informasi karyawan berdasarkan nik mereka yang terdaftar dalam tabel Project_detail. 
+- Menggunakan kondisi `WHERE` untuk memfilter baris-baris di mana nama karyawan adalah 'Ari'. `AND Project_detail.id_proj IN (SELECT id_proj FROM Project WHERE status = 1)` kondisi ini memastikan bahwa hanya project dengan status berjalan **(status = 1) yang akan dihitung**. Subquery
+- `SELECT id_proj FROM Project WHERE status = 1` digunakan untuk mengambil semua id_proj dari tabel Project yang memiliki status berjalan.
 
-## 5. Siapa Saja Yang Mengerjakan Project B ?
+![4](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/71b487a4-3523-400a-9c78-c4d4e7d551ca) 
+
+
+### 5. Siapa Saja Yang Mengerjakan Project B ?
 
 ```
 SELECT Karyawan.nama
@@ -197,3 +203,7 @@ FROM Project_detail
 INNER JOIN Karyawan ON Project_detail.nik = Karyawan.nik
 WHERE Project_detail.id_proj IN (SELECT id_proj FROM Project WHERE nama = 'B');
 ```
+
+Untuk menampilkan nama-nama karyawan yang sedang mengerjakan project dengan nama **'B'**. Menggunakan `INNER JOIN` antara **Project_detail** dan Karyawan berdasarkan **nik** dan filter menggunakan `WHERE` untuk memilih project dengan nama **'B'** berdasarkan **id_proj**.
+
+![5](https://github.com/Gladis32/TugasPraktikum6/assets/148181064/d016ff82-43cd-42b5-8ecf-6a6bc7a776d9) 
