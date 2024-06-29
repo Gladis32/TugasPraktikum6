@@ -33,11 +33,14 @@ INSERT INTO Departemen VALUES
 
 SELECT * FROM Departemen;
 
-CREATE TABLE Karyawan(
+CREATE TABLE Karyawan (
 nik VARCHAR(10) PRIMARY KEY,
-nama VARCHAR(45) NOT NULL,
-id_dept VARCHAR(10) NOT NULL,
-sup_nik VARCHAR(10)
+nama VARCHAR(50),
+id_dept VARCHAR(10),
+sup_nik VARCHAR(10),
+gaji_pokok INT,
+FOREIGN KEY (id_dept) REFERENCES departemen(id_p),
+FOREIGN KEY (sup_nik) REFERENCES karyawan(nik)
 );
 
 INSERT INTO Karyawan VALUES
@@ -55,9 +58,9 @@ SELECT * FROM Karyawan;
 CREATE TABLE Project(
 id_proj VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
-tgl_mulai DATETIME,
-tgl_selesai DATETIME,
-status TINYINT(1)
+tgl_mulai DATE,
+tgl_selesai DATE,
+status INT(1)
 );
 
 INSERT INTO Project VALUES
@@ -67,8 +70,11 @@ INSERT INTO Project VALUES
 SELECT * FROM Project;
 
 CREATE TABLE Project_detail(
-id_proj VARCHAR(10) NOT NULL,
-nik VARCHAR(10) NOT NULL
+id_proj VARCHAR(10),
+nik VARCHAR(10),
+PRIMARY KEY (id_proj, nik),
+FOREIGN KEY (id_proj) REFERENCES proyek(id_proj),
+FOREIGN KEY (nik) REFERENCES pegawai(nik)
 );
 
 INSERT INTO Project_detail VALUES
