@@ -22,7 +22,7 @@ CREATE TABLE Departemen(
 id_dept VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
 id_p VARCHAR(10) NOT NULL,
-manajer_nik VARCHAR(10) 
+sup_nik VARCHAR(10) 
 );
 
 INSERT INTO Departemen VALUES
