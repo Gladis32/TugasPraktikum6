@@ -36,10 +36,7 @@ CREATE TABLE Departemen(
 id_dept VARCHAR(10) PRIMARY KEY,
 nama VARCHAR(45) NOT NULL,
 id_p VARCHAR(10) NOT NULL,
-manajer_nik VARCHAR(10),
-FOREIGN KEY (id_p) REFERENCES Perusahaan(id_p),
-FOREIGN KEY (sup_nik) REFERENCES Karyawan(nik)
-);
+sup_nik VARCHAR(10),
 
 INSERT INTO Departemen VALUES
 ('D01', 'Produksi', 'P02', 'N01'),
